@@ -14,6 +14,7 @@ const mockUser = {
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
+  console.log("Received:", email, password);
 
   if (email === mockUser.email && password === mockUser.password) {
     return res.json({ success: true });
@@ -23,5 +24,5 @@ app.post("/login", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server running on port 5000");
+  console.log("Server running on port 3000");
 });
