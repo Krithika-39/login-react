@@ -8,7 +8,7 @@ const Dashboard = () => {
     const loggedIn = localStorage.getItem("isLoggedIn");
 
     if (loggedIn !== "true") {
-      navigate("/login");
+      navigate("/");
     }
   }, []);
   return (
@@ -22,7 +22,7 @@ const Dashboard = () => {
           <a href="#" className="hidden md:block hover:text-red-500">Movies</a>
           <a href="#" className="hidden md:block hover:text-red-500">Series</a>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
             className="hover:text-red-500"
           >
             Sign Out
