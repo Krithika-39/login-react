@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
+  const API_URL =
+    import.meta.env.VITE_API_URL || "http://localhost:3000";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,7 +15,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (!email || !password) {
       setError("Please fill all fields");
       return;
@@ -24,12 +26,10 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("/api/login", {
+      const res = await axios.post(`${API_URL}/login`, {
         email,
         password,
       });
-
-      console.log("Response:", res.data);
 
       if (res.data.success === true) {
         localStorage.setItem("isLoggedIn", "true");
@@ -38,10 +38,11 @@ const Login = () => {
         setError("Invalid email or password");
       }
     } catch (error) {
-      console.error(error);
       setError("Server error. Try again later.");
     }
   };
+    
+      
 
   return (
     <div

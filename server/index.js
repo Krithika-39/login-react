@@ -3,23 +3,46 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+
 app.use(express.json());
 
-const mockUser = {
-  email: "net@flix.com",
-  password: "123456@",
-};
+app.use(
+  cors({
+    origin: "*", 
+  })
+);
 
-// Route
-app.post("/api/login", (req, res) => {
-  const { email, password } = req.body;
 
-  if (email === mockUser.email && password === mockUser.password) {
-    return res.json({ success: true });
-  }
-
-  return res.json({ success: false });
+app.get("/", (req, res) => {
+  res.send("Server is running 🚀");
 });
 
-module.exports = app;
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  // Mock user (same as your frontend demo)
+  const user = {
+    email: "net@flix.com",
+    password: "123456@",
+  };
+
+  if (email === user.email && password === user.password) {
+    return res.json({
+      success: true,
+      user: { email },
+    });
+  } else {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid email or password",
+    });
+  }
+});
+
+// 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
